@@ -13,7 +13,32 @@ def whereIs(inpt, location):
     return f'{word} is in {location}' if user else "User Not Found :("
 
 def whereIsWaldo():
-    waldoList = ['https://i.imgur.com/ON0bOGC.jpg', 'https://i.imgur.com/22xeBbo.jpg', 'https://i.imgur.com/wH9f8nT.jpg', 'https://i.imgur.com/fYARp5k.jpg', 'https://i.imgur.com/7mPombr.jpg', 'https://i.imgur.com/1swVnrv.jpg', 'https://i.imgur.com/DMXKain.jpg', 'https://i.imgur.com/s6BDAMY.jpg', 'https://i.imgur.com/CMhMAlE.jpg', 'https://i.imgur.com/lkdEmh3.jpg', 'https://i.imgur.com/5ROvxWp.jpg', 'https://i.imgur.com/UQpjRPa.jpg', 'https://i.imgur.com/k7rBC7N.jpg', 'https://i.imgur.com/56LEadS.jpg', 'https://i.imgur.com/iYbQPAk.jpg', 'https://i.imgur.com/xTsstgZ.jpg', 'https://i.imgur.com/yOgPZh6.jpg','https://i.imgur.com/YdH3CRg.jpg', 'https://i.imgur.com/RMq8w60.jpg', 'https://i.imgur.com/txDhaJO.jpg', 'https://i.imgur.com/UAELJLF.jpg', 'https://i.imgur.com/5e3xsy3.jpg', 'https://i.imgur.com/qPzrnnv.jpg', 'https://i.imgur.com/QGb8s8f.jpg']
+    waldoList = [
+        'https://i.imgur.com/ON0bOGCh.jpg',
+        'https://i.imgur.com/22xeBboh.jpg',
+        'https://i.imgur.com/wH9f8nTh.jpg',
+        'https://i.imgur.com/fYARp5kh.jpg',
+        'https://i.imgur.com/7mPombrh.jpg',
+        'https://i.imgur.com/1swVnrvh.jpg',
+        'https://i.imgur.com/DMXKainh.jpg',
+        'https://i.imgur.com/s6BDAMYh.jpg',
+        'https://i.imgur.com/CMhMAlEh.jpg',
+        'https://i.imgur.com/lkdEmh3h.jpg',
+        'https://i.imgur.com/5ROvxWph.jpg',
+        'https://i.imgur.com/UQpjRPah.jpg',
+        'https://i.imgur.com/k7rBC7Nh.jpg',
+        'https://i.imgur.com/56LEadSh.jpg',
+        'https://i.imgur.com/iYbQPAkh.jpg',
+        'https://i.imgur.com/xTsstgZh.jpg',
+        'https://i.imgur.com/yOgPZh6h.jpg',
+        'https://i.imgur.com/YdH3CRgh.jpg',
+        'https://i.imgur.com/RMq8w60h.jpg',
+        'https://i.imgur.com/txDhaJOh.jpg',
+        'https://i.imgur.com/UAELJLFh.jpg',
+        'https://i.imgur.com/5e3xsy3h.jpg',
+        'https://i.imgur.com/qPzrnnvh.jpg',
+        'https://i.imgur.com/QGb8s8fh.jpg'
+    ]
 
     return choice(waldoList)
 

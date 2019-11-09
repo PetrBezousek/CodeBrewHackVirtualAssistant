@@ -21,5 +21,5 @@ def call_slack_api(method, scope, params=[]):
     return resp
 
 # TEST volani
-# params = ['channel=CQC5H8W6R', 'text=HelloWorld!', 'token={token}'.format(token=token), 'pretty=1']
-# call_slack_api("GET", "channels.history", params)
+params = ['channel=CQC5H8W6R', 'text=HelloWorld!', 'token={token}'.format(token=token), 'pretty=1']
+call_slack_api("GET", "channels.history", params)

@@ -56,4 +56,19 @@ def get_channels():
     print(channels)
     return channels
 
+def get_users():
+    api_url = 'https://slack.com/api/users.list'
+
+    params = {'token': token_god, 'pretty': 1}
+
+    resp = json.loads(requests.get(api_url, params).text)
+
+    users = []
+    for user in resp['members']:
+        users.append({user['id']: user['name']})
+
+    print(users)
+    return users
+
+get_users()
 

@@ -1,6 +1,6 @@
 import requests
+from config import token
 
-token = 'xoxb-830034645303-830040044903-Cm8ZHXshO8QsPj2KUylifLb4'
 endpoint = 'https://slack.com/api/channels.history'
 # channels:history
 

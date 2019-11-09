@@ -57,6 +57,7 @@ def get_channels():
     return channels
 
 def get_users():
+
     api_url = 'https://slack.com/api/users.list'
 
     params = {'token': token_god, 'pretty': 1}
@@ -69,6 +70,4 @@ def get_users():
 
     print(users)
     return users
-
-get_users()
 

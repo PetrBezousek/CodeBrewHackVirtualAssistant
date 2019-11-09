@@ -1,6 +1,6 @@
 import requests
 
-token = 'xoxp-830034645303-827714821620-816768327875-cdc25b44c301a3ae2a00abb691c6da92'
+token = 'xoxb-830034645303-830040044903-Cm8ZHXshO8QsPj2KUylifLb4'
 endpoint = 'https://slack.com/api/channels.history'
 # channels:history
 

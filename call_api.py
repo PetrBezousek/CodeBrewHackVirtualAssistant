@@ -57,6 +57,3 @@ def get_channels():
     return channels
 
 
-get_channels()
-
-

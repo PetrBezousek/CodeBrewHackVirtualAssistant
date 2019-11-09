@@ -1,2 +1,5 @@
 # Can't see me now Slack
 config.py
+.idea
+.pyc
+__pycache__

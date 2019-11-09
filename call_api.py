@@ -55,5 +55,3 @@ def get_channels():
 
     print(channels)
     return channels
-
-

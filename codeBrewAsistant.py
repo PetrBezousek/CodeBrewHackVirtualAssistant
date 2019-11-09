@@ -1,18 +1,20 @@
+from call_api import *
 
 def answerHello(inpt, user):
     if inpt.startswith( '@codeBrewAsistant' ):
         return f'Hello {user}'
 
 def whereIs(inpt, location):
-    strip_codeBrewAsistant = inpt.strip("@codeBrewAsistant")
-    finaloutput = strip_codeBrewAsistant.strip(" where is    ")
-    return f'{finaloutput} is in {location}'
+    for word in inpt.split(' '):
+        if word.startswith('@'):
+            print(get_users(name=word[1:]))
+            user = get_users(name=word[1:])
+
+    return f'{word} is in {location}' if user else "User Not Found :("
 
 def whenIsFree(inpt, time):
     strip_codeBrewAsistant = inpt.strip("@codeBrewAsistant")
     finaloutput = strip_codeBrewAsistant.strip(" when is free ")
     return f'{finaloutput} is free at {time}'
 
-print(answerHello('@codeBrewAsistant ', 'Miro'))
-print(whereIs('@codeBrewAsistant where is Marek', 'New York'))
-print(whenIsFree('@codeBrewAsistant when is free Marek', 10))
+print(whereIs('where is @geletamarek', 'New York'))

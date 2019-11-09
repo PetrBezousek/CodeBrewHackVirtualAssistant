@@ -55,3 +55,31 @@ def get_channels():
 
     print(channels)
     return channels
+
+def get_users(uname_first=False, name=False):
+
+    api_url = 'https://slack.com/api/users.list'
+
+    params = {'token': token_god, 'pretty': 1}
+
+    resp = json.loads(requests.get(api_url, params).text)
+
+    users = {}
+    if uname_first or name:
+        if name:
+            userdata = ''
+
+            for user in resp['members']:
+                if user['name'] == name:
+                    userdata = {user['name']:user['id']}
+
+            return userdata
+
+        for user in resp['members']:
+            users[user['name']] = user['id']
+    else:
+        for user in resp['members']:
+            users[user['id']] = user['name']
+
+    print(users)
+    return users

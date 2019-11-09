@@ -1,6 +1,7 @@
 import requests
 from config import token_bot, token_god
 from datetime import datetime, time, timezone
+import json
 
 def get_midnight_timestamp():
     midnight = datetime.combine(datetime.now().date(), time(0,0))
@@ -38,3 +39,24 @@ def get_messages(params):
     print(resp.text)
 
     return resp
+
+
+def get_channels():
+
+    api_url = 'https://slack.com/api/channels.list'
+
+    params = {'token': token_god, 'pretty':1}
+
+    resp = json.loads(requests.get(api_url, params).text)
+
+    channels = []
+    for channel in resp['channels']:
+        channels.append({channel['id']: channel['name']})
+
+    print(channels)
+    return channels
+
+
+get_channels()
+
+

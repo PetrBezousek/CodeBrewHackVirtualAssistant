@@ -41,9 +41,9 @@ def get_messages(params, user=None):
 
     for message in resp['messages']:
         if message.get('username') and message['username'] not in dict.keys():
-            dict[message['username']] = [message['text']]
+            dict[message['username']] = {'ts':message['ts'],'text':message['text']}
         elif message.get('user') and message['user'] not in dict.keys():
-            dict[message['user']] = [message['text']]
+            dict[message['user']] = {'ts':message['ts'],'text':message['text']}
 
     if user:
         for id, text in dict.items():

@@ -6,6 +6,7 @@ from codeBrewAsistant import (whereIsWaldo,
                              format_response,
                              format_txt,
                              whereIs)
+from call_api import get_users
 
 app = Flask(__name__)
 
@@ -27,23 +28,45 @@ def slack_slash_command():
                     "thumb_url": whereIsWaldo()
                 }
             ]}
-            print(resp)
             return format_response(resp)
         # WHEREIS
         elif user_input.startswith("whereis"):
-            whereIs(user_input)
+            seeker = form['user_name'][0]
+            msg = whereIs(user_input, seeker)
+
+            resp = {
+                "text": ""
+                ,
+                "blocks": [
+                        {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": msg
+                            }
+                        }
+                    ]
+            }
+            return format_response(resp)
         # HELP
         elif user_input.startswith("help"):
+
+
             resp = {
-                "text": "Brian is happy to help you./n`whereis` lorem ipsum dolo",
-                "attachments": [
-                {
-                    "fallback": "Helping cat",
-                    "text": "Cat will help!",
-                    "image_url": 'https://giphy.com/gifs/cat-fire-rescue-phJ6eMRFYI6CQ',
-                    "thumb_url": 'https://giphy.com/gifs/cat-fire-rescue-phJ6eMRFYI6CQ'
-                }
-            ]}
-        return format_response("OK")
+                "text": """
+                        Brian helps you snith someone.
+                    """
+                ,
+                "blocks": [
+                        {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "`whereis` lorem ipsum dolor sit amet"
+                            }
+                        }
+                    ]
+            }
+        return format_response(resp)
 
     return format_response("No form found!")

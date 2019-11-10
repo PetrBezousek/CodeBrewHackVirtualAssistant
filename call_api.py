@@ -40,15 +40,15 @@ def get_messages(params, user=None):
     dict = {}
 
     for message in resp['messages']:
-
-            if message.get('username') and message['username'] not in dict.keys():
-                dict[message['username']] = [message['text']]
-            elif message.get('user') and message['user'] not in dict.keys():
-                dict[message['user']] = [message['text']]
+        if message.get('username') and message['username'] not in dict.keys():
+            dict[message['username']] = [message['text']]
+        elif message.get('user') and message['user'] not in dict.keys():
+            dict[message['user']] = [message['text']]
 
     if user:
         for id, text in dict.items():
-            if id == user:
+            print(id, ' == ', user)
+            if id == user and not text[0].endswith('has joined the channel'):
                 print(text)
                 return text
 
@@ -99,5 +99,3 @@ def get_users(uname_first=False, name=False):
 
     print(users)
     return users
-
-get_messages({'channel':'CQC5H8W6R'})

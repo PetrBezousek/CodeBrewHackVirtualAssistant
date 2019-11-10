@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 import requests
 import json
 from random import choice
-from codeBrewAsistant import *
+from codeBrewAsistant import whereIsWaldo, format_response, format_txt
 
 app = Flask(__name__)
 
@@ -11,7 +11,8 @@ app = Flask(__name__)
 def slack_slash_command():
     form = request.form.to_dict(flat=False)
     if form:
-        if form.get('text', '')[0].lower().strip().startswith("where is waldo"):
+        print(format_txt(form.get('text', [''])[0]).startswith("where is waldo"))
+        if format_txt(form.get('text', [''])[0]).startswith("where is waldo"):
             resp = {
                 "text": "You tell me..",
                 "attachments": [
@@ -22,10 +23,9 @@ def slack_slash_command():
                     "thumb_url": whereIsWaldo()
                 }
             ]}
-            return jsonify(resp)
+            print(resp)
+            return format_response(resp)
 
-        resp = jsonify(text="OK")
-        return resp
+        return format_response("OK")
 
-    return jsonify(text="No form found!")
-
+    return format_response("No form found!")

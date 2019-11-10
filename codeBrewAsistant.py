@@ -1,5 +1,8 @@
 from call_api import *
 from random import choice
+from flask import jsonify
+
+
 def answerHello(inpt, user):
     if inpt.startswith( '@codeBrewAsistant' ):
         return f'Hello {user}'
@@ -46,3 +49,21 @@ def whenIsFree(inpt, time):
     strip_codeBrewAsistant = inpt.strip("@codeBrewAsistant")
     finaloutput = strip_codeBrewAsistant.strip(" when is free ")
     return f'{finaloutput} is free at {time}'
+
+def format_response(response):
+    '''
+        Make a json
+    '''
+    response_type = type(response)
+    if response_type == dict:
+        return jsonify(response)
+    elif response_type == str:
+        return jsonify(text=response)
+    else:
+        return jsonify(text="Something went wrong.")
+
+def format_txt(text):
+    '''
+        Transform "  Where Is WALdo ??  " to "where is waldo ??"
+    '''
+    return text.lower().strip()

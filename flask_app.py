@@ -17,7 +17,7 @@ def slack_slash_command():
     if form:
         user_input = format_txt(form.get('text', [''])[0])
         # WALDO
-        if user_input.startswith("where is waldo"):
+        if user_input.startswith("where is waldo") or user_input.startswith("whereis waldo"):
             resp = {
                 "text": "You tell me..",
                 "attachments": [
@@ -30,10 +30,11 @@ def slack_slash_command():
             ]}
             return format_response(resp)
         # WHEREIS
-        elif user_input.startswith("whereis"):
+        elif user_input.startswith("whereis") or user_input.startswith("where is"):
             seeker = form['user_name'][0]
             msg = whereIs(user_input, seeker)
-
+            print('999999999999999f')
+            print(msg)
             resp = {
                 "text": ""
                 ,
@@ -49,20 +50,16 @@ def slack_slash_command():
             }
             return format_response(resp)
         # HELP
-        elif user_input.startswith("help"):
-
-
+        else:
             resp = {
-                "text": """
-                        Brian helps you snith someone.
-                    """
+                "text": "Brian helps you snitch someone."
                 ,
                 "blocks": [
                         {
                             "type": "section",
                             "text": {
                                 "type": "mrkdwn",
-                                "text": "`whereis` lorem ipsum dolor sit amet"
+                                "text": "Help\n`whereis`/`where is` @username1 @username2 - Check if user has message in #iamlate else send him your notice."
                             }
                         }
                     ]

@@ -48,7 +48,7 @@ def get_messages(params, user=None):
     if user:
         for id, text in dict.items():
             print(id, ' == ', user)
-            if id == user and not text[0].endswith('has joined the channel'):
+            if id == user and not text['text'].endswith('has joined the channel'):
                 print(text)
                 return text
 

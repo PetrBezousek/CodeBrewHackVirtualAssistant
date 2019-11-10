@@ -6,6 +6,7 @@ from codeBrewAsistant import (whereIsWaldo,
                              format_response,
                              format_txt,
                              whereIs)
+from call_api import get_users
 
 app = Flask(__name__)
 
@@ -16,7 +17,7 @@ def slack_slash_command():
     if form:
         user_input = format_txt(form.get('text', [''])[0])
         # WALDO
-        if user_input.startswith("where is waldo"):
+        if user_input.startswith("where is waldo") or user_input.startswith("whereis waldo"):
             resp = {
                 "text": "You tell me..",
                 "attachments": [
@@ -27,23 +28,42 @@ def slack_slash_command():
                     "thumb_url": whereIsWaldo()
                 }
             ]}
-            print(resp)
             return format_response(resp)
         # WHEREIS
-        elif user_input.startswith("whereis"):
-            whereIs(user_input)
-        # HELP
-        elif user_input.startswith("help"):
+        elif user_input.startswith("whereis") or user_input.startswith("where is"):
+            seeker = form['user_name'][0]
+            msg = whereIs(user_input, seeker)
+            print('999999999999999f')
+            print(msg)
             resp = {
-                "text": "Brian is happy to help you./n`whereis` lorem ipsum dolo",
-                "attachments": [
-                {
-                    "fallback": "Helping cat",
-                    "text": "Cat will help!",
-                    "image_url": 'https://giphy.com/gifs/cat-fire-rescue-phJ6eMRFYI6CQ',
-                    "thumb_url": 'https://giphy.com/gifs/cat-fire-rescue-phJ6eMRFYI6CQ'
-                }
-            ]}
-        return format_response("OK")
+                "text": ""
+                ,
+                "blocks": [
+                        {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": msg
+                            }
+                        }
+                    ]
+            }
+            return format_response(resp)
+        # HELP
+        else:
+            resp = {
+                "text": "Brian helps you snitch someone."
+                ,
+                "blocks": [
+                        {
+                            "type": "section",
+                            "text": {
+                                "type": "mrkdwn",
+                                "text": "Help\n`whereis`/`where is` @username1 @username2 - Check if user has message in #iamlate else send him your notice."
+                            }
+                        }
+                    ]
+            }
+        return format_response(resp)
 
     return format_response("No form found!")

@@ -1,19 +1,46 @@
 from call_api import *
 from random import choice
 from flask import jsonify
+from datetime import datetime
 
 
 def answerHello(inpt, user):
     if inpt.startswith( '@codeBrewAsistant' ):
         return f'Hello {user}'
 
-def whereIs(inpt, location):
+def whereIs(inpt, seeker):
+    ppp = []
     for word in inpt.split(' '):
         if word.startswith('@'):
             print(get_users(name=word[1:]))
-            user = get_users(name=word[1:])
-
-    return f'{word} is in {location}' if user else "User Not Found :("
+            ppp.append(get_users(name=word[1:]))
+    responses = []
+    for usr in ppp:
+        usr_key = None
+        for k,v in usr.items():
+            usr_key = k
+        if usr:
+            p = None
+            for k,v in usr.items():
+                p = v
+            m = get_messages({'channel': 'CQEPDT1GE'}, user=p)
+            if type(m) == list:
+                m = m[0]
+                # sldfhsljdfjaksdbfjkbsadk TODO
+            print('ljsjldshfjlhsdjlfhsdljfhljsdhfldsfj')
+            print(m)
+            if m:
+                qq = m['text']
+                ww = datetime.fromtimestamp(int(float(m['ts']))).strftime("%d. %m. %Y, %H:%M:%S")
+                responses.append(f'`{ww}` @{usr_key} \n> {qq}')
+            else:
+                post_message({'text': f"Hi, {seeker} is looking for you. PRO TIP: next time, you can write message in #iamlate and I will automaticly respond to him.", 'channel': p})
+                responses.append(f"No message from @{usr_key} found in #iamlate. I told him you are looking for him.")
+    print('44444')
+    if responses:
+        print('55555')
+        return '\n'.join(responses)
+    return "I did not find this user."
 
 def whereIsWaldo():
     waldoList = [

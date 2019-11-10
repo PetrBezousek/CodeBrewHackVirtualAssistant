@@ -60,21 +60,21 @@ def get_messages(params, user=None):
     dict = {}
 
     for message in resp['messages']:
+        if message.get('username') and message['username'] not in dict.keys():
+            dict[message['username']] = {'ts':message['ts'],'text':message['text']}
+        elif message.get('user') and message['user'] not in dict.keys():
+            dict[message['user']] = {'ts':message['ts'],'text':message['text']}
 
-        try:
-            if message.get('username'):
-                dict[message['username']].append(message['text'])
-            elif message.get('user'):
-                dict[message['user']].append(message['text'])
-        except KeyError:
-            if message.get('username'):
-                dict[message['username']] = [message['text']]
-            elif message.get('user'):
-                dict[message['user']] = [message['text']]
+    if user:
+        for id, text in dict.items():
+            print(id, ' == ', user)
+            if id == user and not text['text'].endswith('has joined the channel'):
+                print(text)
+                return text
 
-    print(dict)
-
-    return dict
+    else:
+        print(dict)
+        return dict
 
 
 def get_channels():
@@ -99,7 +99,6 @@ def get_users(uname_first=False, name=False):
     params = {'token': token_god, 'pretty': 1}
 
     resp = json.loads(requests.get(api_url, params).text)
-
     users = {}
     if uname_first or name:
         if name:
@@ -116,6 +115,7 @@ def get_users(uname_first=False, name=False):
     else:
         for user in resp['members']:
             users[user['id']] = user['name']
+            print(user)
 
     print(users)
     return users
@@ -188,3 +188,18 @@ def getEventNow(email):
         xd = f'{a_day} {e["name"]} ending {e["end"]}'
         msg.append(xd)
     return '\n'.join(msg)
+
+def get_email(id):
+
+    api_url = 'https://slack.com/api/users.list'
+
+    params = {'token': token_god, 'pretty': 1}
+
+    resp = json.loads(requests.get(api_url, params).text)
+
+    for user in resp['members']:
+        if user['id'] == id:
+            print(user['profile']['email'])
+            return user['profile']['email']
+    else:
+        return None

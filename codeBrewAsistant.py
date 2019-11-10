@@ -13,16 +13,26 @@ def whereIs(inpt, seeker):
     for word in inpt.split(' '):
         if word.startswith('@'):
             print(get_users(name=word[1:]))
-            ppp.append(get_users(name=word[1:]))
+            fff = get_users(name=word[1:])
+            ppp.append(fff)
     responses = []
     for usr in ppp:
         usr_key = None
         for k,v in usr.items():
             usr_key = k
         if usr:
+            ooo = None
             p = None
             for k,v in usr.items():
                 p = v
+                ooo = getEventNow(get_email(v))
+
+
+            print('2222222222')
+            print(ooo)
+            print('33333333333')
+            if ooo:
+                responses.append(f'Current events from {usr_key} calendar:\n {ooo}')
             m = get_messages({'channel': 'CQEPDT1GE'}, user=p)
             if type(m) == list:
                 m = m[0]

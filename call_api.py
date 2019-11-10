@@ -41,20 +41,20 @@ def get_messages(params, user=None):
 
     for message in resp['messages']:
 
-        try:
-            if message.get('username'):
-                dict[message['username']].append(message['text'])
-            elif message.get('user'):
-                dict[message['user']].append(message['text'])
-        except KeyError:
-            if message.get('username'):
+            if message.get('username') and message['username'] not in dict.keys():
                 dict[message['username']] = [message['text']]
-            elif message.get('user'):
+            elif message.get('user') and message['user'] not in dict.keys():
                 dict[message['user']] = [message['text']]
 
-    print(dict)
+    if user:
+        for id, text in dict.items():
+            if id == user:
+                print(text)
+                return text
 
-    return dict
+    else:
+        print(dict)
+        return dict
 
 
 def get_channels():
@@ -79,7 +79,6 @@ def get_users(uname_first=False, name=False):
     params = {'token': token_god, 'pretty': 1}
 
     resp = json.loads(requests.get(api_url, params).text)
-
     users = {}
     if uname_first or name:
         if name:
@@ -96,6 +95,9 @@ def get_users(uname_first=False, name=False):
     else:
         for user in resp['members']:
             users[user['id']] = user['name']
+            print(user)
 
     print(users)
     return users
+
+get_messages({'channel':'CQC5H8W6R'})

@@ -24,7 +24,7 @@ def post_message(params):
 
     return resp
 
-def get_messages(params):
+def get_messages(params, user=None):
     '''
     {
         channel
@@ -35,10 +35,26 @@ def get_messages(params):
     params['token'] = token_god
     params['oldest'] = get_midnight_timestamp()
 
-    resp = requests.get(api_url, params)
-    print(resp.text)
+    resp = json.loads(requests.get(api_url, params).text)
 
-    return resp
+    dict = {}
+
+    for message in resp['messages']:
+
+        try:
+            if message.get('username'):
+                dict[message['username']].append(message['text'])
+            elif message.get('user'):
+                dict[message['user']].append(message['text'])
+        except KeyError:
+            if message.get('username'):
+                dict[message['username']] = [message['text']]
+            elif message.get('user'):
+                dict[message['user']] = [message['text']]
+
+    print(dict)
+
+    return dict
 
 
 def get_channels():

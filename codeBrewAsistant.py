@@ -7,13 +7,30 @@ def answerHello(inpt, user):
     if inpt.startswith( '@codeBrewAsistant' ):
         return f'Hello {user}'
 
-def whereIs(inpt, location):
+def whereIs(inpt, seeker):
     for word in inpt.split(' '):
         if word.startswith('@'):
             print(get_users(name=word[1:]))
             user = get_users(name=word[1:])
+    print(user)
 
-    return f'{word} is in {location}' if user else "User Not Found :("
+    usr_key = None
+    for k,v in user.items():
+        usr_key = k
+    if user:
+        p = None
+        for k,v in user.items():
+            p = v
+        m = get_messages({'channel': 'CQEPDT1GE'}, user=p)
+        if type(m) == list:
+            m = m[0]
+
+        if m:
+            return f'@{usr_key} \n> {m}'
+        else:
+            post_message({'text': f"Hi, {seeker} is looking for you. PRO TIP: next time, you can write message in #iamlate and I will automaticly respond to him.", 'channel': p})
+            return "No message found in #iamlate. I told him you are looking for him."
+    return "I did not find this user."
 
 def whereIsWaldo():
     waldoList = [

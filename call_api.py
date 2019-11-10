@@ -100,4 +100,18 @@ def get_users(uname_first=False, name=False):
     print(users)
     return users
 
-get_messages({'channel':'CQC5H8W6R'})
+
+def get_email(id):
+
+    api_url = 'https://slack.com/api/users.list'
+
+    params = {'token': token_god, 'pretty': 1}
+
+    resp = json.loads(requests.get(api_url, params).text)
+
+    for user in resp['members']:
+        if user['id'] == id:
+            print(user['profile']['email'])
+            return user['profile']['email']
+    else:
+        return None

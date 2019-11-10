@@ -86,3 +86,5 @@ def get_users():
 
     print(users)
     return users
+
+post_message({'channel':'UQBM0Q5J8','text':'Bubububu!'})
